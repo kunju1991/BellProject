@@ -1,0 +1,56 @@
+<mvc:View xmlns="sap.m" xmlns:viz="sap.viz.ui5.controls" xmlns:layout="sap.ui.layout" xmlns:ui="sap.ui.ux3" xmlns:mvc="sap.ui.core.mvc" xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds" xmlns:viz.data="sap.viz.ui5.data" controllerName="sap.viz.sample.Pie.Pie" height="100%">
+	<Page id="mpPageNewNetwork" title="Scrapped Materials" class="sapUiResponsiveContentPadding">
+		<content>
+			<sap.ushell.ui.footerbar:AddBookmarkButton text="Button" width="100px" icon="sap-icon://add-favorite" xmlns:sap.ushell.ui.footerbar="sap.ushell.ui.footerbar" id="__button2"/>
+			<Button text="Button" width="100px" id="__button3"/>
+			<PagingButton count="5" id="__button4"/>
+			<ToggleButton text="Button" width="100px" id="__button5"/>
+			<ToggleButton text="Button" width="100px" id="__button6"/>
+			<UploadCollection fileType="undefined" maximumFilenameLength="0" maximumFileSize="0" mimeType="undefined" id="__collection0">
+			    <items>
+			        <UploadCollectionItem contributor="Contributor1" fileName="fileName1" fileSize="0" uploadedDate="Wed Jul 27 2016" id="__item2"/>
+			        <UploadCollectionItem contributor="Contributor1" fileName="fileName2" fileSize="0" uploadedDate="Wed Jul 27 2016" id="__item3"/>
+			        <UploadCollectionItem contributor="Contributor1" fileName="fileName3" fileSize="0" uploadedDate="Wed Jul 27 2016" id="__item4"/></items>
+			</UploadCollection>
+			<layout:FixFlex id="chartFixFlex" minFlexSize="250">
+				<!--Below is the setting panel -->
+				<layout:fixContent>
+					<Panel id="settingsPanel" class="panelStyle" expandable="true" expanded="false" headerText="Settings" width="auto">
+						<content>
+							<HBox class="settingsHBox">
+								<VBox class="settingsBox">
+									<Label text="{/dataset/name}" design="Bold" class="settingsLabel"/>
+									<RadioButtonGroup id="datasetRadioGroup" buttons="{path: '/dataset/values'}">
+										<buttons>
+											<RadioButton class="settingsRadio" text="{name}" select="onDatasetSelected"/>
+										</buttons>
+									</RadioButtonGroup>
+								</VBox>
+							</HBox>
+						</content>
+					</Panel>
+				</layout:fixContent>
+				<layout:flexContent>
+					<viz:Popover id="idPopOver"/>
+					<ui:ToolPopup id="idToolPopup"/>
+					<viz:VizFrame id="idVizFrame" uiConfig="{applicationSet:'fiori'}" height="100%" width="100%" vizType="pie">
+						<viz:dataset>
+							<viz.data:FlattenedDataset data="{/scrap}">
+								<viz.data:dimensions>
+									<viz.data:DimensionDefinition name="Material Number" value="{Material Number}"/>
+								</viz.data:dimensions>
+								<viz.data:measures>
+									<viz.data:MeasureDefinition name="Scrapped Units" value="{Scrapped Units}"/>
+								</viz.data:measures>
+							</viz.data:FlattenedDataset>
+						</viz:dataset>
+						<viz:feeds>
+							<viz.feeds:FeedItem uid="size" type="Measure" values="Scrapped Units"/>
+							<viz.feeds:FeedItem uid="color" type="Dimension" values="Material Number"/>
+						</viz:feeds>
+					</viz:VizFrame>
+				</layout:flexContent>
+			</layout:FixFlex>
+		</content>
+	</Page>
+</mvc:View>
